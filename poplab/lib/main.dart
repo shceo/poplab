@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'screens/menu_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Устанавливаем полноэкранный режим
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+ // // Блокируем ориентацию на портретную
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
 
-  // Блокируем ориентацию на портретную
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
+ 
   runApp(const BubblePopLabApp());
 }
 
