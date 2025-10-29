@@ -5,6 +5,7 @@ import '../services/storage_service.dart';
 import 'game_screen.dart';
 import 'shop_screen.dart';
 import 'achievements_screen.dart';
+import 'settings_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -137,11 +138,13 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
           ),
         ),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              const SizedBox(height: 40),
+              Column(
+                children: [
+                  const SizedBox(height: 40),
 
-              // Title
+                  // Title
               AnimatedBuilder(
                 animation: _floatingController,
                 builder: (context, child) {
@@ -275,6 +278,39 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
               ),
 
               const SizedBox(height: 20),
+                ],
+              ),
+
+              // Settings icon in top right corner
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsScreen(),
+                        ),
+                      ).then((_) => _loadPlayerData());
+                    },
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
