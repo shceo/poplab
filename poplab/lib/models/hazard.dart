@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 enum HazardType {
-  jellyfish,  // Медуза
-  blade,      // Лезвие
+  jellyfish,  // Jellyfish
+  blade,      // Blade
 }
 
 class Hazard {
@@ -26,16 +26,16 @@ class Hazard {
   });
 
   void update(double dt, Size screenSize) {
-    // Обновляем позицию
+    // Update position
     position = Offset(
       position.dx + velocity.dx * dt,
       position.dy + velocity.dy * dt,
     );
 
-    // Обновляем вращение
+    // Update rotation
     rotation += rotationSpeed * dt;
 
-    // Отскок от границ
+    // Bounce off boundaries
     if (position.dx < 0 || position.dx > screenSize.width) {
       velocity = Offset(-velocity.dx, velocity.dy);
       position = Offset(

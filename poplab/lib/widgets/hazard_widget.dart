@@ -52,14 +52,14 @@ class _HazardPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 3;
 
-    // Тело медузы
+    // Jellyfish body
     final bodyPaint = Paint()
       ..color = const Color(0xFFFF6B9D)
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, radius, bodyPaint);
 
-    // Щупальца
+    // Tentacles
     final tentaclePaint = Paint()
       ..color = const Color(0xFFFF6B9D).withOpacity(0.7)
       ..style = PaintingStyle.stroke
@@ -73,7 +73,7 @@ class _HazardPainter extends CustomPainter {
       final path = Path();
       path.moveTo(startX, startY);
 
-      // Волнистое щупальце
+      // Wavy tentacle
       for (int j = 0; j < 3; j++) {
         final controlX = startX + math.cos(angle) * (j * 10 + 10) + math.sin(angle) * (j % 2 == 0 ? 5 : -5);
         final controlY = startY + math.sin(angle) * (j * 10 + 10);
@@ -85,7 +85,7 @@ class _HazardPainter extends CustomPainter {
       canvas.drawPath(path, tentaclePaint);
     }
 
-    // Глаза
+    // Eyes
     final eyePaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
@@ -107,14 +107,14 @@ class _HazardPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
 
-    // Лезвие
+    // Blade
     final bladePaint = Paint()
       ..color = const Color(0xFF607D8B)
       ..style = PaintingStyle.fill;
 
     final bladePath = Path();
 
-    // Рисуем острое лезвие
+    // Draw sharp blade
     for (int i = 0; i < 8; i++) {
       final angle = (i / 8) * 2 * math.pi;
       final outerRadius = i % 2 == 0 ? radius : radius * 0.6;
@@ -131,14 +131,14 @@ class _HazardPainter extends CustomPainter {
     bladePath.close();
     canvas.drawPath(bladePath, bladePaint);
 
-    // Центр
+    // Center
     final centerPaint = Paint()
       ..color = const Color(0xFF455A64)
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, radius * 0.3, centerPaint);
 
-    // Металлический блеск
+    // Metallic shine
     final shinePaint = Paint()
       ..color = Colors.white.withOpacity(0.5)
       ..style = PaintingStyle.stroke

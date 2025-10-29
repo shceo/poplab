@@ -5,79 +5,79 @@ import '../models/player_data.dart';
 class StorageService {
   static const String _playerDataKey = 'player_data';
 
-  // Достижения по умолчанию
+  // Default achievements
   static final List<Achievement> defaultAchievements = [
     const Achievement(
       id: 'pure_air',
       name: 'Pure Air',
-      description: 'Достигните серии из 50 O₂ пузырей',
+      description: 'Reach a streak of 50 O₂ bubbles',
       requirement: 50,
       reward: 100,
     ),
     const Achievement(
       id: 'lab_hero',
       name: 'Lab Hero',
-      description: 'Завершите 3 спринта подряд',
+      description: 'Complete 3 sprints in a row',
       requirement: 3,
       reward: 150,
     ),
     const Achievement(
       id: 'toxic_free',
       name: 'Toxic-Free',
-      description: 'Не лопните ни одного токсичного пузыря за игру',
+      description: 'Don\'t pop any toxic bubbles in a game',
       requirement: 1,
       reward: 200,
     ),
     const Achievement(
       id: 'oxygen_master',
       name: 'Oxygen Master',
-      description: 'Лопните 1000 O₂ пузырей всего',
+      description: 'Pop 1000 O₂ bubbles in total',
       requirement: 1000,
       reward: 250,
     ),
     const Achievement(
       id: 'score_legend',
       name: 'Score Legend',
-      description: 'Наберите 10000 очков в одной игре',
+      description: 'Score 10000 points in one game',
       requirement: 10000,
       reward: 300,
     ),
   ];
 
-  // Предметы магазина по умолчанию
+  // Default shop items
   static final List<ShopItem> defaultShopItems = [
     const ShopItem(
       id: 'clean_filter',
-      name: 'Чистый Фильтр',
-      description: 'Удаляет все токсичные пузыри на 5 секунд',
+      name: 'Clean Filter',
+      description: 'Removes all toxic bubbles for 5 seconds',
       price: 100,
       maxLevel: 3,
     ),
     const ShopItem(
       id: 'tap_radius',
-      name: 'Расширение Зоны',
-      description: 'Увеличивает радиус тапа',
+      name: 'Zone Expansion',
+      description: 'Increases tap radius',
       price: 150,
       maxLevel: 5,
     ),
     const ShopItem(
       id: 'slow_motion',
-      name: 'Замедление',
-      description: 'Замедляет время на 3 секунды',
+      name: 'Slow Motion',
+      description: 'Slows down time for 3 seconds',
       price: 120,
       maxLevel: 3,
     ),
     const ShopItem(
       id: 'skin_blue',
-      name: 'Синяя Лаборатория',
-      description: 'Скин лаборатории',
+      name: 'Blue Laboratory',
+      description: 'Laboratory skin',
       price: 200,
       maxLevel: 1,
     ),
     const ShopItem(
       id: 'skin_green',
-      name: 'Зеленая Лаборатория',
-      description: 'Скин лаборатории',
+      name: 'Green Laboratory',
+      description: 'Laboratory skin',
       price: 250,
       maxLevel: 1,
     ),
@@ -102,7 +102,7 @@ class StorageService {
         defaultShopItems: defaultShopItems,
       );
     } catch (e) {
-      // В случае ошибки возвращаем дефолтные данные
+      // In case of error return default data
       return PlayerData(
         achievements: defaultAchievements,
         shopItems: defaultShopItems,
@@ -116,7 +116,7 @@ class StorageService {
       final jsonString = jsonEncode(data.toJson());
       await prefs.setString(_playerDataKey, jsonString);
     } catch (e) {
-      // Логируем ошибку, но не бросаем исключение
+      // Log error but don't throw exception
       print('Error saving player data: $e');
     }
   }
@@ -185,7 +185,7 @@ class StorageService {
     final item = data.shopItems.firstWhere((s) => s.id == itemId);
 
     if (data.totalCapsules < item.getNextPrice()) {
-      return data; // Недостаточно средств
+      return data; // Insufficient funds
     }
 
     final shopItems = data.shopItems.map((s) {

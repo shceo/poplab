@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 enum BubbleType {
-  oxygen,    // O₂ пузыри - основные
-  toxic,     // Токсичные пузыри
-  neutral,   // Нейтральные пузыри
+  oxygen,    // O₂ bubbles - main
+  toxic,     // Toxic bubbles
+  neutral,   // Neutral bubbles
 }
 
 class Bubble {
@@ -33,11 +33,11 @@ class Bubble {
   static Color _getColorForType(BubbleType type) {
     switch (type) {
       case BubbleType.oxygen:
-        return const Color(0xFF4FC3F7); // Голубой
+        return const Color(0xFF4FC3F7); // Blue
       case BubbleType.toxic:
-        return const Color(0xFFE53935); // Красный
+        return const Color(0xFFE53935); // Red
       case BubbleType.neutral:
-        return const Color(0xFFBDBDBD); // Серый
+        return const Color(0xFFBDBDBD); // Gray
     }
   }
 
@@ -56,7 +56,7 @@ class Bubble {
     bool turbulence = false,
     double gravityPulse = 0.0,
   }) {
-    // Применяем турбулентность
+    // Apply turbulence
     if (turbulence) {
       final random = Random();
       velocity = Offset(
@@ -65,7 +65,7 @@ class Bubble {
       );
     }
 
-    // Применяем гравитационный пульс
+    // Apply gravity pulse
     if (gravityPulse != 0.0) {
       velocity = Offset(
         velocity.dx + gravityPulse * 100 * dt,
@@ -73,13 +73,13 @@ class Bubble {
       );
     }
 
-    // Обновляем позицию
+    // Update position
     position = Offset(
       position.dx + velocity.dx * dt,
       position.dy + velocity.dy * dt,
     );
 
-    // Отскок от границ
+    // Bounce off boundaries
     if (position.dx - radius < 0 || position.dx + radius > screenSize.width) {
       velocity = Offset(-velocity.dx * 0.8, velocity.dy);
       position = Offset(

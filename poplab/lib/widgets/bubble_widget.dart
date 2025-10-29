@@ -46,14 +46,14 @@ class _BubblePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
 
-    // Основной круг
+    // Main circle
     final paint = Paint()
       ..color = color.withOpacity(opacity * 0.7)
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, radius, paint);
 
-    // Градиент для объема
+    // Gradient for volume
     final gradientPaint = Paint()
       ..shader = RadialGradient(
         colors: [
@@ -66,7 +66,7 @@ class _BubblePainter extends CustomPainter {
 
     canvas.drawCircle(center, radius, gradientPaint);
 
-    // Контур
+    // Border
     final borderPaint = Paint()
       ..color = color.withOpacity(opacity)
       ..style = PaintingStyle.stroke
@@ -74,7 +74,7 @@ class _BubblePainter extends CustomPainter {
 
     canvas.drawCircle(center, radius, borderPaint);
 
-    // Блик
+    // Highlight
     final highlightPaint = Paint()
       ..color = Colors.white.withOpacity(opacity * 0.8)
       ..style = PaintingStyle.fill;
@@ -86,7 +86,7 @@ class _BubblePainter extends CustomPainter {
 
     canvas.drawCircle(highlightOffset, radius * 0.2, highlightPaint);
 
-    // Иконка для типа пузыря
+    // Icon for bubble type
     _drawIcon(canvas, center, radius);
   }
 

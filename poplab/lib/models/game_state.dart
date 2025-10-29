@@ -1,7 +1,7 @@
 enum GameMode {
-  arcade,      // Бесконечный режим
-  timeAttack,  // 90 секунд
-  daily,       // Ежедневный тест
+  arcade,      // Endless mode
+  timeAttack,  // 90 seconds
+  daily,       // Daily test
 }
 
 enum GameStatus {
@@ -15,18 +15,18 @@ class GameState {
   final int score;
   final int combo;
   final double multiplier;
-  final int capsules; // Валюта
+  final int capsules; // Currency
   final GameMode mode;
   final GameStatus status;
-  final double timeRemaining; // Для Time Attack
-  final int perfectStreaks; // Количество перфектных серий
-  final bool hasPowerup; // Активные способности
+  final double timeRemaining; // For Time Attack
+  final int perfectStreaks; // Number of perfect streaks
+  final bool hasPowerup; // Active abilities
   final String? activePowerup;
   final double powerupTimeRemaining;
-  final int oxygenPopped; // Всего лопнуто O₂
-  final int toxicHit; // Попаданий по токсичным
-  final int currentStreak; // Текущая серия без токсинов
-  final int longestStreak; // Лучшая серия
+  final int oxygenPopped; // Total O₂ popped
+  final int toxicHit; // Hits on toxic
+  final int currentStreak; // Current streak without toxins
+  final int longestStreak; // Best streak
   final bool isSprintActive;
   final double sprintTimeRemaining;
   final int sprintTarget;
@@ -107,7 +107,7 @@ class GameState {
   }
 
   double getNextMultiplier() {
-    // Множитель растет с комбо
+    // Multiplier grows with combo
     if (combo < 5) return 1.0;
     if (combo < 10) return 1.5;
     if (combo < 20) return 2.0;

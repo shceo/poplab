@@ -4,7 +4,7 @@ class Achievement {
   final String description;
   final int requirement;
   final bool unlocked;
-  final int reward; // Капсулы
+  final int reward; // Capsules
 
   const Achievement({
     required this.id,
@@ -33,7 +33,7 @@ class ShopItem {
   final String description;
   final int price;
   final bool purchased;
-  final int level; // Для апгрейдов
+  final int level; // For upgrades
   final int maxLevel;
 
   const ShopItem({

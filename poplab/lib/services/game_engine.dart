@@ -73,7 +73,7 @@ class GameEngine extends ChangeNotifier {
   void update(double dt) {
     if (_state.status != GameStatus.playing) return;
 
-    // Обновляем таймер для Time Attack
+    // Update timer for Time Attack
     if (_state.mode == GameMode.timeAttack) {
       final newTime = (_state.timeRemaining - dt).clamp(0.0, double.infinity);
       _state = _state.copyWith(timeRemaining: newTime);
@@ -84,21 +84,21 @@ class GameEngine extends ChangeNotifier {
       }
     }
 
-    // Обновляем сложность
+    // Update difficulty
     _difficultyTimer += dt;
     _updateDifficulty();
 
-    // Обновляем спринт-челленджи
+    // Update sprint challenges
     _updateSprint(dt);
 
-    // Спавн пузырей
+    // Spawn bubbles
     _timeSinceLastSpawn += dt;
     if (_timeSinceLastSpawn >= _spawnInterval) {
       _spawnBubble();
       _timeSinceLastSpawn = 0;
     }
 
-    // Обновляем пузыри
+    // Update bubbles
     final bubblesToRemove = <Bubble>[];
     for (final bubble in _bubbles) {
       bubble.update(
@@ -108,7 +108,7 @@ class GameEngine extends ChangeNotifier {
         gravityPulse: _gravityPulse,
       );
 
-      // Удаляем пузыри за пределами экрана
+      // Remove bubbles off screen
       if (bubble.position.dy > _screenSize.height + 100 ||
           bubble.position.dy < -100 ||
           bubble.position.dx > _screenSize.width + 100 ||
@@ -116,11 +116,11 @@ class GameEngine extends ChangeNotifier {
         bubblesToRemove.add(bubble);
       }
 
-      // Проверяем столкновения с опасностями
+      // Check collisions with hazards
       for (final hazard in _hazards) {
         if (hazard.intersects(bubble.position, bubble.radius)) {
           if (bubble.type == BubbleType.oxygen && !bubble.isPopped) {
-            // Опасность уничтожает O₂ пузырь
+            // Hazard destroys O₂ bubble
             bubble.isPopped = true;
             _resetCombo();
           }
@@ -130,32 +130,32 @@ class GameEngine extends ChangeNotifier {
 
     _bubbles.removeWhere((b) => bubblesToRemove.contains(b) || b.isPopped);
 
-    // Обновляем опасности
+    // Update hazards
     for (final hazard in _hazards) {
       hazard.update(dt, _screenSize);
     }
 
-    // Сбрасываем гравитационный пульс
+    // Reset gravity pulse
     _gravityPulse = 0;
 
     notifyListeners();
   }
 
   void _updateDifficulty() {
-    // Турбулентность каждые 15 секунд на 5 секунд
+    // Turbulence every 15 seconds for 5 seconds
     final turbulenceCycle = _difficultyTimer % 20;
     _turbulenceActive = turbulenceCycle >= 15 && turbulenceCycle < 20;
 
-    // Гравитационный пульс каждые 10 секунд
+    // Gravity pulse every 10 seconds
     if (_difficultyTimer % 10 < 0.1 && _difficultyTimer > 1) {
       _gravityPulse = _random.nextBool() ? 1.0 : -1.0;
     }
 
-    // Увеличиваем частоту спавна
+    // Increase spawn frequency
     final wave = (_difficultyTimer / 30).floor();
     _spawnInterval = (1.0 - wave * 0.1).clamp(0.3, 1.0);
 
-    // Добавляем опасности
+    // Add hazards
     if (_difficultyTimer > 30 && _hazards.length < 3) {
       if (_random.nextDouble() < 0.01) {
         _spawnHazard();
@@ -169,9 +169,9 @@ class GameEngine extends ChangeNotifier {
       _state = _state.copyWith(sprintTimeRemaining: newTime);
 
       if (newTime <= 0 || _state.sprintProgress >= _state.sprintTarget) {
-        // Завершаем спринт
+        // End sprint
         if (_state.sprintProgress >= _state.sprintTarget) {
-          // Успешно завершен
+          // Successfully completed
           _state = _state.copyWith(
             capsules: _state.capsules + _state.sprintReward,
           );
@@ -186,7 +186,7 @@ class GameEngine extends ChangeNotifier {
       }
     } else {
       _timeSinceLastSprint += dt;
-      // Новый спринт каждые 30-45 секунд
+      // New sprint every 30-45 seconds
       if (_timeSinceLastSprint >= 30 + _random.nextDouble() * 15) {
         _startNewSprint();
       }
@@ -195,7 +195,7 @@ class GameEngine extends ChangeNotifier {
 
   void _startNewSprint() {
     final target = 500 + _random.nextInt(500); // 500-1000 O₂
-    final reward = (target / 10).round(); // 50-100 капсул
+    final reward = (target / 10).round(); // 50-100 capsules
 
     _state = _state.copyWith(
       isSprintActive: true,
@@ -207,7 +207,7 @@ class GameEngine extends ChangeNotifier {
   }
 
   void _spawnBubble() {
-    // Распределение типов пузырей
+    // Bubble type distribution
     double rand = _random.nextDouble();
     BubbleType type;
 
@@ -219,12 +219,12 @@ class GameEngine extends ChangeNotifier {
       type = BubbleType.toxic;
     }
 
-    // Адаптивная сложность - больше токсичных со временем
+    // Adaptive difficulty - more toxic over time
     if (_difficultyTimer > 60 && _random.nextDouble() < 0.05) {
       type = BubbleType.toxic;
     }
 
-    // Окно без токсинов после фейла
+    // Grace period without toxins after fail
     if (_state.combo == 0 && _state.currentStreak == 0 && type == BubbleType.toxic) {
       type = BubbleType.oxygen;
     }
@@ -268,7 +268,7 @@ class GameEngine extends ChangeNotifier {
   void onTap(Offset position) {
     if (_state.status != GameStatus.playing) return;
 
-    // Проверяем попадание по пузырям
+    // Check taps on bubbles
     for (final bubble in _bubbles) {
       if (!bubble.isPopped && bubble.contains(position)) {
         _popBubble(bubble);
@@ -312,14 +312,14 @@ class GameEngine extends ChangeNotifier {
       oxygenPopped: newOxygenPopped,
     );
 
-    // Обновляем прогресс спринта
+    // Update sprint progress
     if (_state.isSprintActive) {
       _state = _state.copyWith(
         sprintProgress: _state.sprintProgress + bubble.points,
       );
     }
 
-    // Проверяем перфектную серию
+    // Check perfect streak
     if (newStreak > 0 && newStreak % 10 == 0) {
       final bonus = (100 * newMultiplier).round();
       _state = _state.copyWith(
@@ -373,7 +373,7 @@ class GameEngine extends ChangeNotifier {
         _removeAllToxic();
         break;
       case 'slow_motion':
-        // Обрабатывается в update
+        // Handled in update
         break;
     }
 
