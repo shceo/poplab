@@ -43,10 +43,10 @@ class _GameScreenState extends State<GameScreen>
 
     _loadPlayerData();
 
-    // Создаем Ticker для игрового цикла
+    // Create Ticker for game loop
     _ticker = createTicker(_onTick);
 
-    // Запускаем игру после первого фрейма
+    // Start game after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery.of(context).size;
       _gameEngine.setScreenSize(size);
@@ -71,7 +71,7 @@ class _GameScreenState extends State<GameScreen>
     _lastElapsed = elapsed;
 
     if (dt > 0 && dt < 0.1) {
-      // Ограничиваем dt для стабильности
+      // Limit dt for stability
       _gameEngine.update(dt);
     }
   }
@@ -86,7 +86,7 @@ class _GameScreenState extends State<GameScreen>
   Future<void> _handleGameOver() async {
     if (_playerData == null) return;
 
-    // Обновляем рекорды
+    // Update records
     String modeStr = 'arcade';
     if (widget.mode == GameMode.timeAttack) modeStr = 'timeAttack';
     if (widget.mode == GameMode.daily) modeStr = 'daily';
@@ -97,13 +97,13 @@ class _GameScreenState extends State<GameScreen>
       modeStr,
     );
 
-    // Проверяем достижения
+    // Check achievements
     updatedData = await _achievementService.checkAchievements(
       updatedData,
       _gameEngine.state,
     );
 
-    // Обновляем статистику
+    // Update statistics
     updatedData = updatedData.copyWith(
       totalOxygenPopped:
           updatedData.totalOxygenPopped + _gameEngine.state.oxygenPopped,
@@ -120,7 +120,7 @@ class _GameScreenState extends State<GameScreen>
       _playerData = updatedData;
     });
 
-    // Показываем диалог Game Over
+    // Show Game Over dialog
     if (mounted) {
       _showGameOverDialog();
     }
@@ -133,7 +133,7 @@ class _GameScreenState extends State<GameScreen>
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1A237E),
         title: const Text(
-          'Игра Окончена!',
+          'Game Over!',
           style: TextStyle(color: Colors.white, fontSize: 28),
           textAlign: TextAlign.center,
         ),
@@ -141,22 +141,22 @@ class _GameScreenState extends State<GameScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Счет: ${_gameEngine.state.score}',
+              'Score: ${_gameEngine.state.score}',
               style: const TextStyle(color: Colors.white, fontSize: 24),
             ),
             const SizedBox(height: 8),
             Text(
-              'Лучшая серия: ${_gameEngine.state.longestStreak}',
+              'Best Streak: ${_gameEngine.state.longestStreak}',
               style: const TextStyle(color: Colors.white70, fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
-              'O₂ собрано: ${_gameEngine.state.oxygenPopped}',
+              'O₂ Collected: ${_gameEngine.state.oxygenPopped}',
               style: const TextStyle(color: Colors.white70, fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
-              'Капсулы: +${_gameEngine.state.capsules}',
+              'Capsules: +${_gameEngine.state.capsules}',
               style: const TextStyle(color: Colors.amber, fontSize: 18),
             ),
           ],
@@ -168,7 +168,7 @@ class _GameScreenState extends State<GameScreen>
               Navigator.of(context).pop();
             },
             child: const Text(
-              'Главное меню',
+              'Main Menu',
               style: TextStyle(color: Colors.white70),
             ),
           ),
@@ -180,7 +180,7 @@ class _GameScreenState extends State<GameScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Играть снова'),
+            child: const Text('Play Again'),
           ),
         ],
       ),
@@ -205,7 +205,7 @@ class _GameScreenState extends State<GameScreen>
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1A237E),
         title: const Text(
-          'Пауза',
+          'Pause',
           style: TextStyle(color: Colors.white, fontSize: 28),
           textAlign: TextAlign.center,
         ),
@@ -213,7 +213,7 @@ class _GameScreenState extends State<GameScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Счет: ${_gameEngine.state.score}',
+              'Score: ${_gameEngine.state.score}',
               style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
           ],
@@ -226,7 +226,7 @@ class _GameScreenState extends State<GameScreen>
               _gameEngine.returnToMenu();
             },
             child: const Text(
-              'Выход',
+              'Exit',
               style: TextStyle(color: Colors.white70),
             ),
           ),
@@ -238,7 +238,7 @@ class _GameScreenState extends State<GameScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Продолжить'),
+            child: const Text('Continue'),
           ),
         ],
       ),
@@ -274,15 +274,15 @@ class _GameScreenState extends State<GameScreen>
           ),
           child: Stack(
             children: [
-              // Частицы фона (необязательно)
+              // Background particles (optional)
               ..._buildBackgroundParticles(),
 
-              // Пузыри
+              // Bubbles
               ..._gameEngine.bubbles.map((bubble) {
                 return BubbleWidget(bubble: bubble);
               }),
 
-              // Опасности
+              // Hazards
               ..._gameEngine.hazards.map((hazard) {
                 return HazardWidget(hazard: hazard);
               }),
@@ -300,7 +300,7 @@ class _GameScreenState extends State<GameScreen>
   }
 
   List<Widget> _buildBackgroundParticles() {
-    // Простые декоративные элементы
+    // Simple decorative elements
     return List.generate(10, (index) {
       return Positioned(
         left: (index * 50.0) % MediaQuery.of(context).size.width,

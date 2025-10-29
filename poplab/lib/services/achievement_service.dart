@@ -13,23 +13,23 @@ class AchievementService {
   ) async {
     PlayerData updated = playerData;
 
-    // Pure Air - серия 50
+    // Pure Air - streak of 50
     if (gameState.longestStreak >= 50) {
       updated = await _storageService.unlockAchievement(updated, 'pure_air');
     }
 
-    // Toxic-Free - ни одного токсина
+    // Toxic-Free - no toxins
     if (gameState.toxicHit == 0 && gameState.oxygenPopped > 10) {
       updated = await _storageService.unlockAchievement(updated, 'toxic_free');
     }
 
-    // Oxygen Master - 1000 O₂ всего
+    // Oxygen Master - 1000 O₂ in total
     final totalOxygen = updated.totalOxygenPopped + gameState.oxygenPopped;
     if (totalOxygen >= 1000) {
       updated = await _storageService.unlockAchievement(updated, 'oxygen_master');
     }
 
-    // Score Legend - 10000 очков
+    // Score Legend - 10000 points
     if (gameState.score >= 10000) {
       updated = await _storageService.unlockAchievement(updated, 'score_legend');
     }

@@ -18,16 +18,16 @@ class GameHUD extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Верхняя панель
+            // Top panel
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Счет и комбо
+                // Score and combo
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Счет: ${state.score}',
+                      'Score: ${state.score}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -44,7 +44,7 @@ class GameHUD extends StatelessWidget {
                     if (state.combo > 0) ...[
                       const SizedBox(height: 4),
                       Text(
-                        'Комбо: x${state.combo}',
+                        'Combo: x${state.combo}',
                         style: TextStyle(
                           color: _getComboColor(state.combo),
                           fontSize: 18,
@@ -62,7 +62,7 @@ class GameHUD extends StatelessWidget {
                     if (state.multiplier > 1.0) ...[
                       const SizedBox(height: 2),
                       Text(
-                        'Множитель: x${state.multiplier.toStringAsFixed(1)}',
+                        'Multiplier: x${state.multiplier.toStringAsFixed(1)}',
                         style: const TextStyle(
                           color: Colors.amber,
                           fontSize: 16,
@@ -79,7 +79,7 @@ class GameHUD extends StatelessWidget {
                     ],
                   ],
                 ),
-                // Кнопка паузы и таймер
+                // Pause button and timer
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -111,7 +111,7 @@ class GameHUD extends StatelessWidget {
               ],
             ),
 
-            // Индикатор серии
+            // Streak indicator
             if (state.currentStreak >= 10) ...[
               const SizedBox(height: 8),
               Container(
@@ -128,7 +128,7 @@ class GameHUD extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  'Серия: ${state.currentStreak} 🔥',
+                  'Streak: ${state.currentStreak} 🔥',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -140,7 +140,7 @@ class GameHUD extends StatelessWidget {
 
             const Spacer(),
 
-            // Спринт-челлендж
+            // Sprint challenge
             if (state.isSprintActive) ...[
               Container(
                 padding: const EdgeInsets.all(16),
@@ -158,7 +158,7 @@ class GameHUD extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      'СПРИНТ-ЧЕЛЛЕНДЖ!',
+                      'SPRINT CHALLENGE!',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -167,7 +167,7 @@ class GameHUD extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Набери ${state.sprintTarget} O₂ за ${state.sprintTimeRemaining.toInt()}s',
+                      'Collect ${state.sprintTarget} O₂ in ${state.sprintTimeRemaining.toInt()}s',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -188,7 +188,7 @@ class GameHUD extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Награда: ${state.sprintReward} капсул',
+                      'Reward: ${state.sprintReward} capsules',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 12,

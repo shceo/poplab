@@ -48,7 +48,7 @@ class _ShopScreenState extends State<ShopScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Куплено: ${item.name}',
+            'Purchased: ${item.name}',
             style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.green,
@@ -64,11 +64,11 @@ class _ShopScreenState extends State<ShopScreen> {
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1A237E),
         title: const Text(
-          'Недостаточно капсул',
+          'Insufficient Capsules',
           style: TextStyle(color: Colors.white),
         ),
         content: const Text(
-          'Играйте больше, чтобы заработать капсулы!',
+          'Play more to earn capsules!',
           style: TextStyle(color: Colors.white70),
         ),
         actions: [
@@ -99,7 +99,7 @@ class _ShopScreenState extends State<ShopScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Заголовок
+              // Title
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -109,7 +109,7 @@ class _ShopScreenState extends State<ShopScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     const Text(
-                      'Магазин',
+                      'Shop',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 32,
@@ -149,7 +149,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 ),
               ),
 
-              // Список предметов
+              // Items list
               Expanded(
                 child: _isLoading
                     ? const Center(
@@ -193,7 +193,7 @@ class _ShopScreenState extends State<ShopScreen> {
       ),
       child: Row(
         children: [
-          // Иконка
+          // Icon
           Container(
             width: 60,
             height: 60,
@@ -210,7 +210,7 @@ class _ShopScreenState extends State<ShopScreen> {
 
           const SizedBox(width: 16),
 
-          // Информация
+          // Information
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,7 +236,7 @@ class _ShopScreenState extends State<ShopScreen> {
                   Row(
                     children: [
                       Text(
-                        'Уровень: ${item.level}/${item.maxLevel}',
+                        'Level: ${item.level}/${item.maxLevel}',
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 12,
@@ -261,7 +261,7 @@ class _ShopScreenState extends State<ShopScreen> {
 
           const SizedBox(width: 16),
 
-          // Кнопка покупки
+          // Purchase button
           ElevatedButton(
             onPressed: canPurchase ? () => _purchaseItem(item) : null,
             style: ElevatedButton.styleFrom(
@@ -275,7 +275,7 @@ class _ShopScreenState extends State<ShopScreen> {
               children: [
                 if (isMaxLevel)
                   const Text(
-                    'МАКС',
+                    'MAX',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -296,7 +296,7 @@ class _ShopScreenState extends State<ShopScreen> {
                     ],
                   ),
                   const Text(
-                    'Купить',
+                    'Buy',
                     style: TextStyle(fontSize: 12),
                   ),
                 ],

@@ -46,7 +46,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Заголовок
+              // Title
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -56,7 +56,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     const Text(
-                      'Достижения',
+                      'Achievements',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 32,
@@ -67,7 +67,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                 ),
               ),
 
-              // Статистика
+              // Statistics
               if (_playerData != null) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -81,17 +81,17 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _buildStatItem(
-                          'Разблокировано',
+                          'Unlocked',
                           '${_playerData!.achievements.where((a) => a.unlocked).length}/${_playerData!.achievements.length}',
                           Icons.emoji_events,
                         ),
                         _buildStatItem(
-                          'Игры',
+                          'Games',
                           '${_playerData!.totalGamesPlayed}',
                           Icons.gamepad,
                         ),
                         _buildStatItem(
-                          'O₂ всего',
+                          'Total O₂',
                           '${_playerData!.totalOxygenPopped}',
                           Icons.bubble_chart,
                         ),
@@ -102,7 +102,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                 const SizedBox(height: 16),
               ],
 
-              // Список достижений
+              // Achievements list
               Expanded(
                 child: _isLoading
                     ? const Center(
@@ -168,7 +168,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
       ),
       child: Row(
         children: [
-          // Иконка
+          // Icon
           Container(
             width: 60,
             height: 60,
@@ -191,7 +191,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
 
           const SizedBox(width: 16),
 
-          // Информация
+          // Information
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +228,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'Награда: ${achievement.reward} капсул',
+                      'Reward: ${achievement.reward} capsules',
                       style: TextStyle(
                         color: achievement.unlocked
                             ? Colors.amber
@@ -243,7 +243,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
             ),
           ),
 
-          // Статус
+          // Status
           if (achievement.unlocked)
             const Icon(
               Icons.check_circle,

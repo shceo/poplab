@@ -104,11 +104,11 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1A237E),
         title: const Text(
-          'Ежедневный тест',
+          'Daily Test',
           style: TextStyle(color: Colors.white),
         ),
         content: const Text(
-          'Вы уже прошли сегодняшний тест! Возвращайтесь завтра.',
+          'You have already completed today\'s test! Come back tomorrow.',
           style: TextStyle(color: Colors.white70),
         ),
         actions: [
@@ -141,7 +141,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
             children: [
               const SizedBox(height: 40),
 
-              // Заголовок
+              // Title
               AnimatedBuilder(
                 animation: _floatingController,
                 builder: (context, child) {
@@ -169,7 +169,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'Пузырьки O₂',
+                      'O₂ Bubbles',
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 20,
@@ -182,7 +182,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
 
               const SizedBox(height: 40),
 
-              // Статистика игрока
+              // Player statistics
               if (_playerData != null) ...[
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -190,12 +190,12 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildStatCard(
-                        'Капсулы',
+                        'Capsules',
                         '${_playerData!.totalCapsules}',
                         Icons.bubble_chart,
                       ),
                       _buildStatCard(
-                        'Рекорд',
+                        'Record',
                         '${_playerData!.highScoreArcade}',
                         Icons.emoji_events,
                       ),
@@ -206,14 +206,14 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
 
               const Spacer(),
 
-              // Кнопки режимов
+              // Mode buttons
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Column(
                   children: [
                     _buildModeButton(
                       title: 'ARCADE',
-                      subtitle: 'Бесконечный режим',
+                      subtitle: 'Endless mode',
                       icon: Icons.all_inclusive,
                       color: Colors.blue,
                       onTap: () => _startGame(GameMode.arcade),
@@ -221,7 +221,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     const SizedBox(height: 16),
                     _buildModeButton(
                       title: 'TIME ATTACK',
-                      subtitle: '90 секунд',
+                      subtitle: '90 seconds',
                       icon: Icons.timer,
                       color: Colors.orange,
                       onTap: () => _startGame(GameMode.timeAttack),
@@ -230,8 +230,8 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     _buildModeButton(
                       title: 'DAILY LAB TEST',
                       subtitle: _canPlayDaily()
-                          ? 'Ежедневный тест'
-                          : 'Пройден сегодня',
+                          ? 'Daily test'
+                          : 'Completed today',
                       icon: Icons.calendar_today,
                       color: _canPlayDaily() ? Colors.purple : Colors.grey,
                       onTap: () => _startGame(GameMode.daily),
@@ -242,7 +242,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
 
               const Spacer(),
 
-              // Нижние кнопки
+              // Bottom buttons
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 child: Row(
@@ -250,7 +250,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                   children: [
                     _buildBottomButton(
                       icon: Icons.shopping_bag,
-                      label: 'Магазин',
+                      label: 'Shop',
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -261,7 +261,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     ),
                     _buildBottomButton(
                       icon: Icons.emoji_events,
-                      label: 'Достижения',
+                      label: 'Achievements',
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(

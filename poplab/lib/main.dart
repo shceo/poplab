@@ -4,9 +4,9 @@ import 'screens/menu_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Устанавливаем полноэкранный режим
+  // Set fullscreen mode
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
- // // Блокируем ориентацию на портретную
+ // // Lock to portrait orientation
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
   //   DeviceOrientation.portraitDown,
