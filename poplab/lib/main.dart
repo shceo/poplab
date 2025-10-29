@@ -3,15 +3,6 @@ import 'screens/menu_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Set fullscreen mode
-  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
- // // Lock to portrait orientation
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]);
-
  
   runApp(const BubblePopLabApp());
 }
